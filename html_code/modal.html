@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The use of modals in css</title>
+    <link rel="stylesheet" href="modal.css" />
+  </head>
+  <body>
+    <div class="container">
+      <button type="submit" class="btn" onclick="openPopup()">Submit</button>
+      <div class="pop_up">
+        <div class="image">
+          <div class="icon"></div>
+        </div>
+        <div class="text">
+          <h2>Thank You!</h2>
+          <h4>Your details has been successfully submitted!</h4>
+        </div>
+        <button type="button" class="ok" onclick="closePopup()">OK</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    let popup = document.querySelector(".pop_up");
+    function openPopup() {
+      popup.classList.add("open_popup");
+    }
+    function closePopup() {
+      popup.classList.remove("open_popup");
+    }
+  </script>
+</html>

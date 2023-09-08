@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ELE 202 EXAMINATION</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudfare.com/ajax/limbs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="../javascript/jquery-3.6.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background: #555;
+      }
+      div.header {
+        margin-top: 10px;
+      }
+      div.header h2,
+      div.header h3,
+      div.header h4 {
+        margin: 0;
+        font-size: 20px;
+        color: white;
+        text-align: center;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      }
+      div.question h4 {
+        color: initial;
+      }
+      .total_question {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+      }
+      .total_question .question {
+        width: 100%;
+        text-align: center;
+        margin: 100px auto;
+        color: white;
+        font-size: 30px;
+      }
+
+      .container {
+        display: flex;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        background-color: #ccc;
+        max-width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        transition: 0.5s ease-in-out;
+        justify-content: center;
+        align-items: center;
+        color: black;
+      }
+      .container:hover {
+        background-color: #eee;
+      }
+      /* Hide the browser's default radio */
+      .container input {
+        position: absolute;
+        opacity: 0;
+        height: 0;
+        width: 75%;
+      }
+      /* Create a custom radio */
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 25%;
+        background-color: inherit;
+        border-radius: inherit;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+      }
+
+      /* when the radio is checked, add a blue background */
+      .container input:checked ~ .checkmark {
+        background-color: white;
+      }
+      .checkmark:before {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      /* Show the customized checkmark when the input type checked */
+      .container input:checked ~ .checkmark:before {
+        display: block;
+      }
+      /* style the checkmark indicator */
+      .container .checkmark.correct:before {
+        content: "";
+        width: 5px;
+        height: 10px;
+        border: solid green;
+        border-width: 0 5px 5px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+
+      .checkmark.wrong:before {
+        content: "X";
+        display: none;
+        color: red;
+      }
+
+      .option_div {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+      }
+      .option_div .container {
+        margin: 5px;
+        width: 20%;
+      }
+
+      .pagination {
+        text-align: center;
+        position: fixed;
+        bottom: 80px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .num_tabs {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .pagination a {
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        border: 1px solid #ddd;
+        margin: 2px 4px;
+        display: block;
+        width: 15px;
+      }
+
+      .page-link.select {
+        background: #fff;
+        color: #000;
+      }
+      .pagination a:hover {
+        background-color: #ddd;
+        color: #000;
+      }
+
+      .submit {
+        padding: 10px 40px;
+        border: 0px;
+        outline: none;
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: 500;
+        transition: 0.5s ease-in-out;
+        display: block;
+        position: fixed;
+        right: 10%;
+        bottom: 20%;
+        color: #000;
+        background: #ddd;
+      }
+      .submit:hover {
+        color: #ddd;
+        background-color: #857f7f;
+      }
+      .end_quiz {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .image {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: green;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: -50px;
+        box-shadow: 0 20px 5px rgba(0, 0, 0, 0.2);
+      }
+      .image .icon {
+        width: 20px;
+        height: 35px;
+        border: solid #fff;
+        border-width: 0 5px 5px 0;
+        -webkit-transform: rotate(45deg); /* Safari prior 9.0 */
+        -ms-transform: rotate(45deg); /* IE 9 */
+        transform: rotate(45deg);
+      }
+      .pop_up {
+        width: 400px;
+        background: #fff;
+        border-radius: 6px;
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.1);
+        -webkit-transform: translate(-50%, -50%) scale(0.1);
+        -ms-transform: translate(-50%, -50%) scale(0.1);
+        padding: 0px 30px 30px;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.4s, top 0.4s, opacity 0.4s;
+        opacity: 0;
+        z-index: -1000000;
+      }
+      .pop_up.open_popup {
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        -webkit-transform: translate(-50%, -50%) scale(1);
+        -ms-transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        z-index: 100000;
+      }
+      .pop_up .text {
+        text-align: center;
+        margin-top: 50px;
+      }
+      .pop_up .text h2 {
+        font-size: 30px;
+        text-align: center;
+        margin: 0;
+      }
+      .pop_up .text h3 {
+        text-align: center;
+        font-size: 25px;
+        margin: 0;
+      }
+      .sub_end_quiz {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+      .retake,
+      .answers,
+      .reload {
+        width: 40%;
+        margin-top: 50px;
+        padding: 10px 0;
+        background: #6fd649;
+        outline: none;
+        border: 0px;
+        font-size: 18px;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.5s;
+      }
+      .retake a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .retake:hover {
+        background: #9fee82;
+      }
+      .answers:hover {
+        background: #9fee82;
+      }
+      .retake:hover {
+        background: #9fee82;
+      }
+      .reload:hover {
+        background: #9fee82;
+      }
+      .result_div {
+        color: white;
+        font-size: 20px;
+        padding: 10px;
+      }
+      .reload {
+        width: fit-content;
+        text-align: center;
+        padding: 10px 15px;
+        position: fixed;
+        bottom: 10%;
+        right: 10%;
+      }
+      .reload a {
+        text-decoration: none;
+        color: initial;
+        display: block;
+      }
+      /* Respnsiveness */
+      @media (max-width: 769px) {
+        .option_div .container {
+          width: 40%;
+        }
+      }
+
+      @media (max-width: 500px) {
+        .option_div .container {
+          width: 90%;
+          margin: 5px auto;
+        }
+        .pagination {
+          bottom: 5%;
+        }
+        .total_question .question {
+          margin: 30px auto;
+        }
+        .pop_up {
+          width: 95%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h2>University Of Ilorin</h2>
+      <h3>Faculty Of Engineering</h3>
+      <h4>Department Of Electrical and Electronics and Engineering</h4>
+    </div>
+    <!-- question section -->
+    <div class="total_question"></div>
+
+    <div class="pagination">
+      <a href="#" class="previous">&laquo;</a>
+      <span class="num_tabs"> </span>
+      <a href="#" class="next">&raquo;</a>
+    </div>
+
+    <div class="end_quiz">
+      <button type="submit" class="submit">End Quiz</button>
+      <div class="pop_up">
+        <div class="image">
+          <div class="icon"></div>
+        </div>
+        <div class="text">
+          <h2>Thank You!</h2>
+        </div>
+        <div class="sub_end_quiz">
+          <button type="button" class="retake">
+            <a href="index.html">RETAKE QUIZ</a>
+          </button>
+          <button type="button" class="answers">SHOW ANSWERS</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="result_div"></div>
+    <button type="button" class="reload">
+      <a href="index.html">RETAKE QUIZ</a>
+    </button>
+
+    <script src="../javascript/questions.js"></script>
+    <script src="../javascript/script.js"></script>
+  </body>
+</html>
