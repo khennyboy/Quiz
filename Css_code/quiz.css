@@ -37,23 +37,32 @@ body {
   .total_question .question p{
     font-family: Arial, Helvetica, sans-serif;
     font-size: x-large;
+    padding-left: 5px;
+  }
+  .option_div {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%; /* has 80% width of the screen */
+    justify-content: center;
   }
   .container {
-    display: flex;
+    width: 90%;
     position: relative;
-    padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 22px;
     background-color: #dfafaf;
-    max-width: 100%;
+    width: 100%;
     padding: 10px;
     border-radius: 5px;
     transition: 0.5s ease-in-out;
-    justify-content: center;
-    align-items: center;
-    color: black;
+    overflow: auto;
+    text-align: center;
   }
+  /* hide default scroll bar incase it shows authomatically */
+  .container::-webkit-scrollbar {
+    display: none;
+}
   .container:hover {
     background-color: #fba6a6;
   }
@@ -62,11 +71,10 @@ body {
     position: absolute;
     opacity: 0;
     height: 0;
-    width: 75%;
+    width: 0;
   }
   /* Create a custom radio */
   .checkmark {
-    position: absolute;
     top: 0;
     left: 0;
     height: 100%;
@@ -107,17 +115,6 @@ body {
     display: none;
     color: red;
   }
-  .option_div {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
-  }
-  .option_div .container {
-    margin: 10px 0;
-    padding: 20px 0px;
-    width: 90%;
-  }
   .pagination {
     text-align: center;
     bottom: 80px;
@@ -136,10 +133,12 @@ body {
     padding: 8px 16px;
     text-decoration: none;
     transition: background-color 0.3s;
-    border: 1px solid #ddd;
+    border: 1px solid #fff;
     margin: 2px 4px;
     display: block;
     width: 15px;
+    font-weight: 700;
+    color: #000;
   }
 
   .page-link.select {
@@ -170,7 +169,7 @@ body {
     transform: rotate(45deg);
   }
   .pop_up {
-    width: 400px;
+    width: 80%;
     background: #fff;
     border-radius: 6px;
     position: absolute;
@@ -235,6 +234,11 @@ body {
   .answers, .retake{
     padding: 15px 10px;
     width: 30%;
+    height: 60px;
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .retake:hover, .answers:hover, .reload:hover, .submit:hover {
     background-color: #f3d4d4;
@@ -293,25 +297,40 @@ body {
   }
 
 /* Responsiveness */
-@media screen and (min-width:760px) {
+@media screen and (min-width:768px) {
   .num_tabs{
     display: flex;
   }
   .pagination{
     justify-content: center;
   }
-  .total_question{
-    width: 70%;
-  }
  .reload, .submit{
+    width: 15%;
+  }
+  .pop_up{
+    width: 50%;
+    padding-bottom: 50px;
+  }
+  .checkmark{
     width: 15%;
   }
 }
 @media screen and (min-width:992px) {
+  .total_question{
+    width: 100%;
+    padding: 10px 0;
+    padding-bottom: 50px;
+  }
   .option_div{
     justify-content: space-evenly;
   }
   .option_div .container{
+    width: 40%;
+  }
+  .checkmark{
+    width: 20%;
+  }
+  .pop_up{
     width: 40%;
   }
   .pagination{

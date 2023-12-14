@@ -58,6 +58,7 @@ $(document).ready(function () {
   // for loops ends here
   // to add class to correct and wrong answer
   $(".opt").on("click", function () {
+     $(this).siblings('.checkmark').css('position', 'absolute')
     var ans_chosen = "";
     if ($(this).is(":checked")) {
       ans_chosen = $(this).val(); // this stores the answer chosen
@@ -72,21 +73,18 @@ $(document).ready(function () {
     }
   // this stores the correct answer, the input type hidden we have created
    var correct_ans = $(this).parent("label").siblings("#answer").val();
-    
-    var q = $(this).parent("label").parent(".option_div").parent(".question");
+   var q = $(this).parent("label").parent(".option_div").parent(".question");
     q = q.attr("id");
     q = "." + q;
     $(q).text($(q).text() + ans_chosen); // its class becomes that of the class under temp_3
 
     // comparing the correct_and the chosen_ans
     if (ans_chosen == correct_ans) {
-      $(this).siblings(".checkmark").removeClass("wrong");
       $(this).siblings(".checkmark").addClass("correct");
       num_correct += 1;
       swal("Correct!", `You got ${num_correct} answer correct`, "success");
     }
     if (ans_chosen != correct_ans) {
-      $(this).siblings(".checkmark").removeClass("correct");
       $(this).siblings(".checkmark").addClass("wrong");
       num_wrong += 1;
       swal(
@@ -157,7 +155,7 @@ $(document).ready(function () {
     $(que_id).show();
   });
   // quiz_time();
-});
+
 
 $(".next").click(function () {
   var active_tab = $(".page-link.select");
@@ -180,6 +178,7 @@ $(".previous").click(function () {
   active_id = "#" + active_num;
   $(".question").hide();
   $(active_id).show();
+  var check = $('.checkmark').css('opacity')
 });
 
 
@@ -200,6 +199,8 @@ $(".reload").click(function () {
 $(".retake").click(function () {
   location.reload();
 });
+
+})
 
 // time code start here
 // var total_time = 62;

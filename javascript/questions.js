@@ -3,7 +3,7 @@ const questions = [
     numb: 1,
     question: "What element is He?",
     ans: "Helium",
-    options: ["Hydrogen", "Helium", "Neon", "Magnesium"],
+    options: ["Hydrogenhjwhvhjkbqhvekjbg,cgehjbvdg,hcvdjkhdvjkfbhjvdzjkgv", "Helium", "Neon", "Magnesium"],
   },
   {
     numb: 2,
@@ -15,7 +15,7 @@ const questions = [
     numb: 3,
     question: "What is the only liquid metal at room temp?",
     ans: "Mercury",
-    options: ["Mercury", "Potassium", "Sodium", "Oxygen"],
+    options: ["nbsknbhjs,jkhvsk,msvhknshvskjbhsbskhvsjvh,Mercury", "Potassium", "Sodium", "Oxygen"],
   },
   {
     numb: 4,
