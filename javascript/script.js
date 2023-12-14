@@ -63,7 +63,7 @@ $(document).ready(function () {
     if ($(this).is(":checked")) {
       ans_chosen = $(this).val(); // this stores the answer chosen
       clicked_opt += 1;
-      if (clicked_opt == 3) {
+      if (clicked_opt == questions.length-4) {
         // let result_2 = `<h3>You Scored ${num_correct} out of ${
         //   questions.length
         // } questions</h3>`;
