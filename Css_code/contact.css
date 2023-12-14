@@ -1,0 +1,212 @@
+ /* custom scroll bar */
+ ::-webkit-scrollbar {width: 10px;}
+ ::-webkit-scrollbar-track {background: #242526;}
+ ::-webkit-scrollbar-thumb {background: #3A3B3C;}
+ 
+ a:link {
+     text-decoration: none;
+ }
+ a:hover {
+     cursor: pointer;
+ }
+ * {
+    margin: 0;
+    padding: 0;
+     box-sizing: border-box;
+ }
+ :root{
+    --text1: #fff;
+    --text2: #903aff;
+ }
+ body {
+     background: #150e28;
+     
+     width: 100%;
+ }
+ .header{
+    margin-top: 20px;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+ }
+ .header_container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+ }
+ .header_container .title{
+    color: var(--text1);
+    width: 40%;
+    padding-left: 10%;
+    font-family: Montserrat;
+    font-size: 30px;
+ }
+ .header_container .title .text-design{
+    color: var(--text2);
+ }
+
+ .header_container ul{
+    display: flex;
+    width: 60%;
+    justify-content: space-evenly;
+    align-items: center;
+ }
+ .header_container ul li{
+    list-style-type: none;
+ }
+ .header_container ul li a, .header_container ul li button {
+    list-style-type: none;
+    color: var(--text1);
+    display:block;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+ }
+ .header_container ul li button {
+    outline: none;
+    border: none;
+    background-color: var(--text2);
+    color: var(--text1);
+    padding: 8px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+ }
+ .header_container ul li button:hover{
+    background-color: var(--text1);
+    color: var(--text2);  
+ }
+ 
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    
+    margin: 120px auto 0px;
+}
+.container .left{
+   width: 30%;
+   position: relative;
+   
+}
+.grad, .grad2 {
+   width: 700px;
+   height: auto;
+}
+.grad {
+   left: -350px;
+   top: -50;
+}
+.grad2 {
+   right: -450px;
+   top: 100px;
+   z-index: -10;
+}
+.starp {
+   top: -80px;
+   left: 90%;
+}
+.star-gray {
+   bottom: 10px;
+   left: 110%;
+}
+.star-light {
+   left: 10%;
+}
+
+.container .left > p{
+    color: var(--text1);
+    margin:20px 0;
+}
+ .contact_icons p{
+    margin-bottom: 5px;
+} 
+.container .right{
+   width: 60%;
+   background: rgba(144, 58, 255, 0.05);
+   border-radius: 5px;
+   padding: 50px;
+   position: relative;
+   overflow: hidden;
+   margin-bottom: 50px;
+ }
+ .container .right h4{
+    max-width: 80%;
+    margin: auto;
+    text-align: left;
+    font-size: large;
+    letter-spacing: 1px;
+    line-height: 20px;
+ }
+ input[type="text"]::placeholder, input[type="email"]::placeholder, textarea::placeholder{
+    color: var(--text1);
+ }
+input[type="text"], input[type="email"], textarea{
+    display: block;
+    border: none;
+    border: 1px solid var(--text1);
+    background-color: inherit;
+    padding: 15px;
+    border-radius: 5px;
+    width: 100%;
+    margin: 15px auto;
+    outline: none;
+    color: var(--text1);
+}
+textarea{
+    resize: none;
+    height: 100px;
+}
+button[type="submit"]{
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+    display: block;
+    margin: 30px auto 0;
+}
+input[type="submit"]:hover{
+    color: var(--text2);
+    background-color: var(--text1);
+}
+
+button {
+   width: 172px !important;
+   padding: 10px;
+   flex-shrink: 0;
+   border-radius: 4px !important;
+   color: #fff;
+   background-image: linear-gradient(-90deg, #903aff 0%, #d434fe 56.42%, #ff26b9 99%, #fe34b9 100%);
+   border: none;
+   outline: none;
+   font-size: 20px;
+}
+button:hover {color:#fff !important}
+@media screen and (max-width: 767px) {
+   .grad, .grad2 {
+      width: 300px;
+      height: auto;
+      display: none;
+   }
+   .container .right, .container .left {
+      width: 100%;
+   }
+   .container {
+      justify-content: center;
+   }
+   .container .left {
+      text-align: center;
+   }
+   .container .right {
+      padding: 10px;
+      margin-top: 20px;
+   }
+}

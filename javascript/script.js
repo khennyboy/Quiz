@@ -1,6 +1,5 @@
 $(document).ready(function () {
-  var num_correct = 0;
-  var num_wrong = 0;
+  var num_correct = 0, num_wrong=0, clicked_opt=0;
   for (var i = 0; i < questions.length; i++) {
     var temp = `<div class="question" id="question_${i + 1}">
                   <p>${questions[i].numb}. ${questions[i].question}</p>
@@ -48,11 +47,11 @@ $(document).ready(function () {
     $(".page-link").first().addClass("select");
 
     var temp_3 = `<div>
-                    ${questions[i].numb}. ${questions[i].question}<br>
-                    Answers selected: <span class="question_${
+                    ${questions[i].numb}. ${questions[i].question}
+                    <span class="question_${
                       i + 1
-                    }"></span><br>
-                    Answer: ${questions[i].ans}
+                    }"> Answers selected: </span>
+                    <span>Answer: ${questions[i].ans}</span>
                   </div>`;
     $(".result_div").append(temp_3);
   }
@@ -62,60 +61,39 @@ $(document).ready(function () {
     var ans_chosen = "";
     if ($(this).is(":checked")) {
       ans_chosen = $(this).val(); // this stores the answer chosen
-      all_questions += 1;
-      if (all_questions == questions.length) {
+      clicked_opt += 1;
+      if (clicked_opt == 3) {
+        // let result_2 = `<h3>You Scored ${num_correct} out of ${
+        //   questions.length
+        // } questions</h3>`;
+        // $(".text").append(result_2);
         $(".submit").show();
-        let result_2 = `<h3>You Scored ${num_correct} out of ${questions.length} questions</h3>`;
-        $(".text").append(result_2);
-      } else {
-        $(".submit").hide();
       }
     }
-    // console.log(ans_chosen);
-    correct_ans = $(this).parent("label").siblings("#answer").val(); // this stores the correct answer
-    // console.log(correct_ans);
-
+  // this stores the correct answer, the input type hidden we have created
+   var correct_ans = $(this).parent("label").siblings("#answer").val();
+    
     var q = $(this).parent("label").parent(".option_div").parent(".question");
     q = q.attr("id");
     q = "." + q;
-    $(q).text(ans_chosen); // its class becomes that of the class under temp_3
-
-    //alert(q);
+    $(q).text($(q).text() + ans_chosen); // its class becomes that of the class under temp_3
 
     // comparing the correct_and the chosen_ans
     if (ans_chosen == correct_ans) {
       $(this).siblings(".checkmark").removeClass("wrong");
       $(this).siblings(".checkmark").addClass("correct");
       num_correct += 1;
-      $(function () {
-        Swal.fire(`Correct Answer! You got ${num_correct} answer correct`);
-      });
+      swal("Correct!", `You got ${num_correct} answer correct`, "success");
     }
     if (ans_chosen != correct_ans) {
       $(this).siblings(".checkmark").removeClass("correct");
       $(this).siblings(".checkmark").addClass("wrong");
-
       num_wrong += 1;
-      $(function () {
-        Swal.fire(
-          `Wrong! The correct answer is ${correct_ans}<br>You got ${num_wrong} answer wrong`
-        );
-      });
-      // var correct_opt = $(this)
-      //   .parent("label")
-      //   .parent(".option_div")
-      //   .find(".opt");
-      // for (var i = 0; i < correct_opt.length; i++) {
-      //   // console.log(correct_opt[i].value);
-      //   if (correct_opt[i].value == correct_ans) {
-      //     num_wrong += 1;
-      //     $(function () {
-      //       Swal.fire(
-      //         `Wrong! The correct answer is ${correct_ans}<br>You got ${num_wrong} answer wrong`
-      //       );
-      //     });
-      //   }
-      // }
+      swal(
+        "Wrong!",
+        `The correct answer is ${correct_ans} </br> You got ${num_wrong} answer wrong`,
+        "error"
+      );
     }
     // to choose one option only in a question
     $(this)
@@ -124,29 +102,51 @@ $(document).ready(function () {
       .find(".opt")
       .attr("disabled", true);
   });
-
   // option_click function ends here
-
   $(".question").hide(); // hide all the questions with this class
   $("#question_1").show(); // show only question1
-  var all_questions = 0;
   $(".submit").hide();
   $(".result_div").hide();
   $(".reload").hide();
 
   $(".submit").click(function () {
-    console.log("hello");
-    $(this).siblings(".pop_up").addClass("open_popup");
+    $("#loading_container").css("display", "flex");
+    $("#content").css("display", "none");
+    $("body").css("background-color", "initial");
+    setTimeout(show_content, 1000);
+    $(".submit").attr("disabed", true);
     $(".submit").hide();
+    // if (clicked_opt != questions.length) {
+      let result_2 = `<h3>You Scored ${num_correct} out of ${questions.length} questions</h3>`;
+      $(".text").append(result_2);
+    // }
+    // sessionStorage.updated_time = 1;
   });
+  function show_content() {
+    $("#loading_container").css("display", "none");
+    $("#content").css("display", "block");
+    $("body").css("background-color", "#f3d4d4");
+    $(".pop_up").addClass("open_popup");
+  }
 
   $(".answers").click(function () {
-    $(".result_div").show();
+    $("#loading_container").css("display", "flex");
+    $("#content").css("display", "none");
+    $("body").css("background-color", "initial");
+    setTimeout(show_answers, 1000);
     $(".total_question").hide();
     $(".pagination").hide();
     $(".pop_up").hide();
     $(".reload").show();
+    $("#timer").hide();
   });
+  function show_answers() {
+    $("#loading_container").css("display", "none");
+    $("#content").css("display", "block");
+    $("body").css("background-color", "#f3d4d4");
+    $(".pop_up").addClass("open_popup");
+    $(".result_div").show();
+  }
   $(".page-link").click(function (e) {
     e.preventDefault();
     $(this).siblings(".page-link").removeClass("select"); //remove the class "select" from others
@@ -156,11 +156,13 @@ $(document).ready(function () {
     $(".question").hide();
     $(que_id).show();
   });
+  // quiz_time();
 });
 
 $(".next").click(function () {
   var active_tab = $(".page-link.select");
-  var next_tab = active_tab.next(); //use of next() function here
+  var next_tab = active_tab.next();
+  //use of next() function here
   next_tab.siblings(".page-link").removeClass("select");
   next_tab.addClass("select");
   var active_num = $(".page-link.select").data("id");
@@ -179,3 +181,60 @@ $(".previous").click(function () {
   $(".question").hide();
   $(active_id).show();
 });
+
+
+
+function hideLoader() {
+  $("#loading_container").css("display", "none");
+  $("#content").css("display", "block");
+  $("body").css("background-color", "#f3d4d4");
+}
+// this is added to delay the execusion of the function
+setTimeout(hideLoader, 1000);
+
+// this should remove the previous time if the user finises on time
+$(".reload").click(function () {
+  // sessionStorage.removeItem("updated_time");
+  location.reload();
+});
+$(".retake").click(function () {
+  location.reload();
+});
+
+// time code start here
+// var total_time = 62;
+// var minutes, seconds;
+// function quiz_time() {
+//   if (sessionStorage != "undefined") {
+//     if (sessionStorage.updated_time) {
+//       sessionStorage.updated_time = Number(sessionStorage.updated_time) - 1;
+//     } else {
+//       sessionStorage.updated_time = total_time;
+//     }
+//     minutes = Math.floor(Number(sessionStorage.updated_time) / 60);
+//     seconds = Number(sessionStorage.updated_time) % 60;
+//     time = `${minutes < 10 ? "0" : ""}${minutes}:${
+//       seconds < 10 ? "0" : ""
+//     }${seconds}`;
+//     document.getElementById("timer").innerHTML =
+//       `<i class="fas fa-clock"></i>` + time;
+//   }
+//   //outer if statemenet ends here
+//   else {
+//     alert("local storage is not supported");
+//   }
+//   if (sessionStorage.updated_time == 0) {
+//     document.getElementById("timer").innerHTML =
+//       `<i class="fas fa-clock"></i>` + " 00:00";
+
+//     if (!$(".submit").prop("clicked")) {
+//       $(".submit").click();
+//     }
+//     sessionStorage.removeItem("updated_time");
+//   }
+
+//   if (Number(sessionStorage.updated_time) >= 0) {
+//     setTimeout(quiz_time, 1000);
+//   }
+// }
+sessionStorage.clear();

@@ -1,0 +1,57 @@
+ /* custom scroll bar */
+ ::-webkit-scrollbar {width: 10px;}
+ ::-webkit-scrollbar-track {background: #242526;}
+ ::-webkit-scrollbar-thumb {background: #3A3B3C;}
+ 
+ a:link {
+     text-decoration: none;
+ }
+ a:hover {
+     cursor: pointer;
+ }
+ * {
+    margin: 0;
+    padding: 0;
+     box-sizing: border-box;
+ }
+ :root{
+    --text1: #fff;
+    --text2: #903aff;
+ }
+ .grad, .grad2 {
+   width: 700px;
+   height: auto;
+}
+.grad {
+   left: -100px;
+   top: -70px;
+}
+.part {
+   color: #fff;
+}
+.grad2 {
+   right: -250px;
+   top: 50px;
+   z-index: -10;
+}
+label {
+   color: #fff !important;
+}
+input, select {
+   background: transparent !important;
+   color: #fff !important;
+}
+option {
+   color: #000;
+}
+@media screen and (max-width: 767px) {
+   .grad, .grad2 {
+      width: 300px;
+      height: auto;
+      display: none;
+   }
+}
+#agree {
+   width: 20px;
+   height: 20px;
+}

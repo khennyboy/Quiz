@@ -1,0 +1,320 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  #content{
+    display: none;
+    width: 90%;
+    margin: 0px auto;
+  }
+  div.header {
+    margin-top: 15px;
+  }
+  div.header h2,
+  div.header h3,
+  div.header h4 {
+    margin: 0;
+    padding:0px 5px;
+    font-size: 20px;
+    text-align: center;
+    text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+  }
+  div.question h4 {
+    color: initial;
+  }
+  .total_question {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 40px;
+    background-color: #f5c5c5;
+    padding: 10px;
+    padding-bottom: 20px;
+  }
+  .total_question .question {
+    width: 100%;
+  }
+  .total_question .question p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-large;
+  }
+  .container {
+    display: flex;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    background-color: #dfafaf;
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.5s ease-in-out;
+    justify-content: center;
+    align-items: center;
+    color: black;
+  }
+  .container:hover {
+    background-color: #fba6a6;
+  }
+  /* Hide the browser's default radio */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 75%;
+  }
+  /* Create a custom radio */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 25%;
+    background-color: inherit;
+    border-radius: inherit;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+
+  /* when the radio is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: white;
+  }
+  .checkmark:before {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  /* Show the customized checkmark when the input type checked */
+  .container input:checked ~ .checkmark:before {
+    display: block;
+  }
+  /* style the checkmark indicator */
+  .container .checkmark.correct:before {
+    content: "";
+    width: 5px;
+    height: 10px;
+    border: solid green;
+    border-width: 0 5px 5px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .checkmark.wrong:before {
+    content: "X";
+    display: none;
+    color: red;
+  }
+  .option_div {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+  .option_div .container {
+    margin: 10px 0;
+    padding: 20px 0px;
+    width: 90%;
+  }
+  .pagination {
+    text-align: center;
+    bottom: 80px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 50px 0;
+  }
+  .num_tabs {
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pagination a {
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: 1px solid #ddd;
+    margin: 2px 4px;
+    display: block;
+    width: 15px;
+  }
+
+  .page-link.select {
+    background: #fff;
+    color: #000;
+  }
+  .pagination a:hover {
+    background-color: #ea9696;
+  }
+  .image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #f19c9c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -70px;
+    box-shadow: 0 20px 5px rgba(0, 0, 0, 0.2);
+  }
+  .image .icon {
+    width: 20px;
+    height: 35px;
+    border: solid #fff;
+    border-width: 0 5px 5px 0;
+    -webkit-transform: rotate(45deg); /* Safari prior 9.0 */
+    -ms-transform: rotate(45deg); /* IE 9 */
+    transform: rotate(45deg);
+  }
+  .pop_up {
+    width: 400px;
+    background: #fff;
+    border-radius: 6px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    -webkit-transform: translate(-50%, -50%) scale(0.1);
+    -ms-transform: translate(-50%, -50%) scale(0.1);
+    padding: 30px 20px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.4s, top 0.4s, opacity 0.4s;
+    opacity: 0;
+    z-index: -1000000;
+  }
+  .pop_up.open_popup {
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    -webkit-transform: translate(-50%, -50%) scale(1);
+    -ms-transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    z-index: 100000;
+  }
+  .pop_up .text {
+    text-align: center;
+    padding: 20px 0;
+  }
+  .pop_up .text h2 {
+    font-size: 30px;
+    text-align: center;
+    margin: 0;
+  }
+  .pop_up .text h3 {
+    text-align: center;
+    font-size: 25px;
+    margin: 0;
+  }
+  .sub_end_quiz {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .answers, .retake, .reload, .submit{
+    width: 25%;
+    padding: 10px 0;
+    background: #dfa7a7;
+    outline: none;
+    border: 0px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.5s;
+  }
+  .answers, .retake{
+    padding: 15px 10px;
+    width: 30%;
+  }
+  .retake:hover, .answers:hover, .reload:hover, .submit:hover {
+    background-color: #f3d4d4;
+    outline-offset: 3px;
+    outline-style: solid;
+    outline-color: #dfa7a7;
+  }
+  .reload, .submit{
+    position: fixed;
+    bottom: 70px;
+    right: 50px;
+  }
+  .result_div div{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: large;
+  }
+  .result_div span {
+   display: block;
+   padding: 5px;
+   font-family: Arial, Helvetica, sans-serif;
+  }
+  section {
+    color: #ccc;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    align-items: center;
+    font-size: 20px;
+  }
+  #timer i {
+    color: #ccc;
+    font-size: 25px;
+    margin-right: 5px;
+  }
+  #loading_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  }
+  #loading_spinner{
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #ed9999;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+  }
+
+/* Responsiveness */
+@media screen and (min-width:760px) {
+  .num_tabs{
+    display: flex;
+  }
+  .pagination{
+    justify-content: center;
+  }
+  .total_question{
+    width: 70%;
+  }
+ .reload, .submit{
+    width: 15%;
+  }
+}
+@media screen and (min-width:992px) {
+  .option_div{
+    justify-content: space-evenly;
+  }
+  .option_div .container{
+    width: 40%;
+  }
+  .pagination{
+    margin-top: 100px;
+  }
+}
