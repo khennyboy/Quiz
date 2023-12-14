@@ -3,7 +3,7 @@ const questions = [
     numb: 1,
     question: "What element is He?",
     ans: "Helium",
-    options: ["Hydrogen", "Helium", "Neon", "Magnesium"],
+    options: ["Pottasium", "Helium", "Neon", "Magnesium"],
   },
   {
     numb: 2,
