@@ -50,4 +50,11 @@ const questions = [
     ans: "Semiconductor",
     options: ["Semiconductor", "Multiconductor", "Non-metals", "Metals"],
   },
+  {
+    numb: 9,
+    question:
+      "_________ Is the way of life of people",
+    ans: "Culture",
+    options: ["Work", "Culture", "School", "Community"],
+  },
 ];

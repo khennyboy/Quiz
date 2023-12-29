@@ -3,7 +3,7 @@ $(document).ready(function () {
   for (var i = 0; i < questions.length; i++) {
     var temp = `<div class="question" id="question_${i + 1}">
                   <p>${questions[i].numb}. ${questions[i].question}</p>
-                  <div class="option_div">
+                  <div class="option_div option_div${i+1}">
                     <label for="option1_${i + 1}" class="container">
                       ${questions[i].options[0]}
                       <input type="radio" class="opt" value="${
@@ -63,7 +63,7 @@ $(document).ready(function () {
     if ($(this).is(":checked")) {
       ans_chosen = $(this).val(); // this stores the answer chosen
       clicked_opt += 1;
-      if (clicked_opt == questions.length-4) {
+      if (clicked_opt == questions.length-1) {
         // let result_2 = `<h3>You Scored ${num_correct} out of ${
         //   questions.length
         // } questions</h3>`;
@@ -101,8 +101,8 @@ $(document).ready(function () {
       .attr("disabled", true);
   });
   // option_click function ends here
-  $(".question").hide(); // hide all the questions with this class
-  $("#question_1").show(); // show only question1
+  $(".question").hide();
+  $("#question_1").show(); 
   $(".submit").hide();
   $(".result_div").hide();
   $(".reload").hide();
@@ -156,32 +156,40 @@ $(document).ready(function () {
   });
   // quiz_time();
 
-
-$(".next").click(function () {
-  var active_tab = $(".page-link.select");
+function next(){
+ var active_tab = $(".page-link.select");
   var next_tab = active_tab.next();
-  //use of next() function here
   next_tab.siblings(".page-link").removeClass("select");
   next_tab.addClass("select");
   var active_num = $(".page-link.select").data("id");
   active_id = "#" + active_num;
   $(".question").hide();
-  $(active_id).show();
-});
-
-$(".previous").click(function () {
+  if(next_tab.length==0){
+    active_id = '#question_1'
+    $(".page-link").removeClass("select")
+    $('.page-link[data-id="question_1"]').addClass('select')
+  }
+  $(active_id).show(); 
+}
+function previous(){
   var active_tab = $(".page-link.select");
-  prev_tab = active_tab.prev(); // use of prev() function  here
+  prev_tab = active_tab.prev(); 
   prev_tab.siblings(".page-link").removeClass("select");
   prev_tab.addClass("select");
   var active_num = $(".page-link.select").data("id");
+  console.log(active_num)
   active_id = "#" + active_num;
   $(".question").hide();
+  if(prev_tab.length==0){
+    active_id = `#question_${document.querySelector('.total_question').children.length}`
+    $(".page-link").removeClass("select")
+    $(`.page-link[data-id='question_${document.querySelector('.total_question').children.length}']`).addClass('select')
+  }
+  console.log(prev_tab)
   $(active_id).show();
-  var check = $('.checkmark').css('opacity')
-});
-
-
+}
+$(".next").click(next);
+$(".previous").click(previous);
 
 function hideLoader() {
   $("#loading_container").css("display", "none");
@@ -199,8 +207,27 @@ $(".reload").click(function () {
 $(".retake").click(function () {
   location.reload();
 });
-
+// functions for choosing answer using keyboard
+document.addEventListener("keydown", function(e){
+  var options = ['a', 'b', 'c', 'd']
+  if(options.includes(e.key)){
+    let position = options.indexOf(e.key)
+    let opt = document.querySelectorAll('.option_div')
+     opt.forEach((each, index)=>{
+          if(getComputedStyle(each.parentElement).display!='none'){
+            each.querySelector(`#option${position+1}_${index+1}`).click()
+        }
+    })
+  }
+  if(e.key=='ArrowLeft'){
+    previous()
+  }
+  if(e.key=='ArrowRight'){
+    next()
+  }
 })
+})
+
 
 // time code start here
 // var total_time = 62;
